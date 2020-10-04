@@ -17,7 +17,7 @@ const randomFunc = {
     symbol: getRandomSymbol
 };
 
-
+// Calculating random upper/lower case letters, numbers, and symbols
 
 function getRandomUpper() {
     return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
@@ -45,21 +45,18 @@ function generatePassword() {
 
     });
 
+    //promts and confirms with if, else if, else statements
     length = prompt("How long do you want your password? (number between 8 and 128)");
 
     if (!length) {
         alert("Must enter a number");
-    } 
-    
-    else if (length < 8 || length > 128) {
+    } else if (length < 8 || length > 128) {
         length = prompt("You must choose between 8 and 128");
-    }  
-        
-    else  {
-    upper = confirm("Do you want to include Upper Case letters? ");
-    lower = confirm("Do you want to include Lower Case letters? ");
-    number = confirm("Do you want to include Numbers? ");
-    symbol = confirm("Do you want to include Symbols? ");
+    } else {
+        upper = confirm("Do you want to include Upper Case letters? ");
+        lower = confirm("Do you want to include Lower Case letters? ");
+        number = confirm("Do you want to include Numbers? ");
+        symbol = confirm("Do you want to include Symbols? ");
     }
 
 
@@ -79,12 +76,12 @@ function generatePassword() {
         getRandomSymbol.symbol;
     }
 
-    console.log(upper);
-    console.log(lower);
-    console.log(number);
-    console.log(symbol);
+    // console.log(upper);
+    // console.log(lower);
+    // console.log(number);
+    // console.log(symbol);
 
-
+    //generating password
     var password = [];
     var password = generatePassword(length, upper, lower, number, symbol);
     var passwordText = document.querySelector("#password");
@@ -97,6 +94,7 @@ function generatePassword() {
 
         let generatedPassword = "";
         const typesCount = lower + upper + number + symbol;
+        
         // console.log("typesCount: ", typesCount);
 
         const typesArr = [{
@@ -109,32 +107,33 @@ function generatePassword() {
             symbol
         }].filter(
             item => Object.values(item)[0]
-            
-            );
+
+        );
         // console.log("typesArr: ", typesArr);
-        
+
 
         if (typesCount === 0) {
             return "";
         }
 
-        for (let i = 0; i < length; i += typesCount){
+        for (let i = 0; i < length; i += typesCount) {
             typesArr.forEach(type => {
                 const funcName = Object.keys(type)[0];
-            
+
                 // console.log("funcName: ",funcName);
                 generatedPassword += randomFunc[funcName]();
             });
         }
+
+        //.slice allowing password to be 1 character instead of a minimum 4 character password.
         const finalPassword = generatedPassword.slice(0, length);
         return finalPassword;
     }
 
     passwordText.value = password;
 
-    
+
 }
 
 // Add event listener to generate button
 generateEl.addEventListener("click", generatePassword);
-
